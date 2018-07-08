@@ -2,39 +2,61 @@ from cmd import Cmd
 from datetime import datetime
 from re import search
 
-from query_definitions.num_messages_sent import NumMessagesSent
+from query_definitions.numMessagesSent import NumMessagesSent
 
 class ConversationAnalyzer(Cmd, NumMessagesSent, object):
+    # TODO: Need to create more possible regex patterns and group them within a list. 
+    # These will be used for verfication and to parse. Doing this work should go with updating the sample_conversation.txt file to include multi-line messages
+
+    # TODO: This regex patterns needs to be more robust
     REGEX_PATTERN_2 = '([0-9]{1,2} [A-Z]{1}[a-z]+ [0-9]{4} at [0-9]{1,2}:[0-9]{2} [A-Z]{2}), ([A-Za-z0-9]+) : ([A-Za-z\\s\\W]+)'
 
     def __init__(self, conversation_file):
         super(ConversationAnalyzer, self).__init__()
+
         self.conversation_file = conversation_file
         self.conversation_dict = {}
+        self.users = []
 
     def parse_conversation(self):
         line = self.conversation_file.readline()
 
+        # line will be empty string when end-of-file (EOF) has been reached
         while (line != ''):
+            # TODO: Verify that each line encountered falls into one of the regex patterns defined
             regex_groups = search(self.REGEX_PATTERN_2, line)
 
-            datetime_message = datetime.strptime(regex_groups.group(1), '%d %B %Y at %I:%M %p')
+            date_at_time_datetime = datetime.strptime(regex_groups.group(1), '%d %B %Y at %I:%M %p')
 
-            year = datetime_message.year
-            month = datetime_message.month
-            day = datetime_message.day
-            hour = datetime_message.hour
-            minute = datetime_message.minute
+            year = date_at_time_datetime.year
+            month = date_at_time_datetime.month
+            day = date_at_time_datetime.day
+            hour = date_at_time_datetime.hour
+            minute = date_at_time_datetime.minute
             user = regex_groups.group(2)
             message = regex_groups.group(3)
 
+            # Keep track of all users seen
+            if (user not in self.users):
+                self.users.append(user)
+
+            # Record this info into the conversation_dict
             self.record_message_into_year(year, month, day, hour, minute, user, message)
 
+            # Grab next line to be parsed
             line = self.conversation_file.readline()
 
-        print(self.conversation_dict)
+        # Uncomment this next line to see the entire conversation as a dict
+        # print(self.conversation_dict)
+
+    ### Query Methods
+
+    def do_describe(self, args):
+        print(self.users)
 
     def do_quit(self, args):
+        print('Quitting...')
+        self.conversation_file.close()
         return True
 
     ### Helper functions
@@ -88,7 +110,7 @@ class ConversationAnalyzer(Cmd, NumMessagesSent, object):
     def record_message_into_user(self, year, month, day, hour, minute, user, message):
         if user in self.conversation_dict[year][month][day][hour][minute]:
             # We've seen this user this minute already! Continue recording their message into their list
-            self.conversation_dict[year][month][day][hour][minute][user] = message
+            self.conversation_dict[year][month][day][hour][minute][user].append(message)
         else:
             # First time this user has been seen this minute! Record this new user and save their message into a new list
             self.conversation_dict[year][month][day][hour][minute][user] = [message]
