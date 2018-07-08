@@ -1,3 +1,5 @@
 30 May 2018 at 7:00 AM, user1 : hey!
 31 May 2018 at 7:14 AM, user2 : what's up?
 01 June 2018 at 7:47 AM, user1 : how are you?
+01 June 2018 at 8:00 AM, user2 : I'm good. You?
+02 June 2018 at 8:14 AM, user1 : Good as well
