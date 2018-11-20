@@ -38,14 +38,14 @@ pip install -r ./requirements.txt
 ### How to run
 You can start the program by running the following command within the command line:
 ```bash
-python3 ./conversation-analyzer.py ./conversation-files/{conversation}.csv
+python3 ./main.py ./conversation-files/{conversation}.csv
 ```
 Where `{conversation}` refers to the name of the csv file which contains the conversation. Be sure the format of the conversation follows the same patterns described in the [Input](#input) section.
 
 ### How to use
 Once the program has started you will be prompted for a `Query`. The following is what you will see after starting:
 ```bash
-$ python3 ./conversation-analyzer.py ./conversation-files/{conversation}.csv
+$ python3 ./main.py ./conversation-files/{conversation}.csv
 Starting...
 Type 'help' to get a list of possible queries to execute
 Type 'quit' to quit the program 
@@ -81,7 +81,7 @@ The logic for each `Query-Definition` should live in its own `.py` file within t
 
 ## Example Usage
 ```bash
-$ python3 ./conversation-analyzer ./conversation-files/sample-conversation.csv
+$ python3 ./main.py ./conversation-files/sample-conversation.csv
 Starting...
 Type 'help' to get a list of possible queries to execute
 Type 'quit' to quit the program 

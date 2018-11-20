@@ -7,7 +7,7 @@ class NumMessagesSent:
 
     def do_numMessagesSent(self, args):
         # Ex: BY user1 FROM 05.30.2018 @ 07:00 TO 06.01.2018 @ 08:00
-        REGEX = 'BY ([A-Za-z0-9]+) FROM ([0-9]{2}.[0-9]{2}.[0-9]{4} @ [0-9]{2}:[0-9]{2}) TO ([0-9]{2}.[0-9]{2}.[0-9]{4} @ [0-9]{2}:[0-9]{2})'
+        REGEX = 'BY ([A-Za-z0-9\s\u3131-\ucb4c]+) FROM ([0-9]{2}.[0-9]{2}.[0-9]{4} @ [0-9]{2}:[0-9]{2}) TO ([0-9]{2}.[0-9]{2}.[0-9]{4} @ [0-9]{2}:[0-9]{2})'
 
         regex_groups = search(REGEX, args)
 
