@@ -14,9 +14,9 @@ def transform():
     input_file = open(file_name, 'r')
 
     REGEX_1 = r'(.+), (\d{1,2}) ([A-Za-z]+) (\d{4}\n)'
-    REGEX_2 = u'([\d]{1,2} [A-Z]{1}[a-z]+ [\d]{4} at [\d]{1,2}:[\d]{2} [A-Z]{2}), ([A-Za-z\d\s\u3131-\ucb4c]+) : ([\dA-Za-z\:\s\W\u3131-\ucfff]+)\n?'
+    REGEX_2 = u'([\d]{1,2} [A-Z]{1}[a-z]+ [\d]{4} at [\d]{1,2}:[\d]{2} [A-Z]{2}), ([A-Za-z\d\s\u3131-\ucb4c]+) : ([\dA-Za-z\:\s\W\u3131-\ucb4c]+)\n?'
 
-    output_file = open('./output.csv', 'w')
+    output_file = open(f'{file_name}.csv', 'w')
 
     line = input_file.readline()
     date_at_time_datetime = None
@@ -52,6 +52,7 @@ def transform():
         line = input_file.readline()
 
     input_file.close()
+    output_file.close()
 
 if __name__ == '__main__':
     transform()

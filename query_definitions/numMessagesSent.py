@@ -19,7 +19,7 @@ class NumMessagesSent:
         end_datetime = datetime.strptime(regex_groups.group(3), '%m.%d.%Y @ %H:%M')
 
         print(self.data_frame[
-                (self.data_frame['datetime'] >= start_datetime) & 
-                (self.data_frame['datetime'] <= end_datetime) & 
-                (self.data_frame.user == user)
+                (self.data_frame['Date'] >= start_datetime) & 
+                (self.data_frame['Date'] <= end_datetime) & 
+                (self.data_frame.User == user)
         ].shape[0])
